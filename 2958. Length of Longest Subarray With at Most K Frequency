@@ -1,0 +1,25 @@
+class Solution {
+public:
+    Solution()
+    {
+        ios_base::sync_with_stdio(false); 
+        cin.tie(NULL); 
+        cout.tie(NULL);
+    }
+    int maxSubarrayLength(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        int n = nums.size();
+        int l = 0, r = 0, count {};
+        while(r < n)
+        {
+            int ans = nums[r++];
+            mp[ans]++;
+            while(l < r && mp[ans] > k)
+            {
+                mp[nums[l++]]--;
+            }
+            count = max(count, r - l);
+        }
+        return count;
+    }
+};
