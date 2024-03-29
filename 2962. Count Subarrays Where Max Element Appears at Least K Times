@@ -1,0 +1,22 @@
+class Solution {
+public:
+    // Function to count subarrays with at least k occurrences of the maximum element
+    long long countSubarrays(vector<int>& nums, int k) {
+        long long ans = 0; // Initialize answer variable to store the result
+        int app = 0; // Initialize a variable to count occurrences of the maximum element
+        int maxi = *max_element(nums.begin(), nums.end()); // Find the maximum element in the array
+        int n = nums.size(); // Get the size of the array
+        int j = 0; // Initialize a pointer for the sliding window
+        for (int i = 0; i < n; i++) { // Loop through the array
+            if (nums[i] == maxi) // If the current element is equal to the maximum element
+                app++; // Increment the count of occurrences
+            while (app >= k) { // While the count of occurrences is greater than or equal to k
+                if (nums[j] == maxi) // If the element at the start of the window is the maximum element
+                    app--; // Decrement the count of occurrences
+                ans += (n - i); // Increment the answer by the number of subarrays ending at the current index
+                j++; // Move the window forward
+            }
+        }
+        return ans; // Return the final count of subarrays
+    }
+};
