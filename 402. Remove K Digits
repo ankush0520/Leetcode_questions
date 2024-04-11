@@ -1,0 +1,30 @@
+class Solution {
+public:
+    std::string removeKdigits(std::string num, int k) {
+        std::stack<char> stack;
+        
+        for (char d : num) {
+            while (!stack.empty() && k > 0 && stack.top() > d) {
+                stack.pop();
+                k--;
+            }
+            stack.push(d);
+        }
+        
+        while (k > 0 && !stack.empty()) {
+            stack.pop();
+            k--;
+        }
+        
+        std::string ans;
+        while (!stack.empty()) {
+            ans += stack.top();
+            stack.pop();
+        }
+        std::reverse(ans.begin(), ans.end()); 
+        size_t pos = ans.find_first_not_of('0');
+        ans = (pos == std::string::npos) ? "0" : ans.substr(pos);
+        
+        return ans;
+    }
+};
